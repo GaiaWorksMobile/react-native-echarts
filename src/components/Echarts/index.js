@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebView, View, StyleSheet } from 'react-native';
+import { WebView, View, StyleSheet, Platform} from 'react-native';
 import renderChart from './renderChart';
 import echarts from './echarts.min';
 import Device from 'react-native-device-detection';
@@ -27,7 +27,7 @@ export default class App extends Component {
           }}
           scalesPageToFit={!Device.isIos}
           scrollEnabled={false}
-          source={{uri:'./tpl.html'}}
+          source={Platform.OS === 'ios' ? {uri:'./tpl.html'} : {uri:'file:///android_asset/tpl.html'}}
           onMessage={event => this.props.onPress ? this.props.onPress(JSON.parse(event.nativeEvent.data)) : null}
         />
       </View>
